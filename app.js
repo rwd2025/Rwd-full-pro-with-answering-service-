@@ -6435,7 +6435,7 @@ try{ document.title = "Rolling Wrench Diesel Production App"; }catch(e){}
 
   window.renderSettings005=function(){
     rwd005Defaults();
-    const themes=[['green','Rolling Wrench Green','Black + neon green shield'],['night','Night Ops','Matte black + military green'],['orange','Diesel Orange','Black + burnt orange'],['blue','Steel Blue','Gunmetal + electric blue'],['red','Fire Red','Black + red high contrast'],['light','Shop Light','White office/invoice mode'],['carbon','Carbon Fiber','Carbon + silver'],['chrome','Chrome & Black','Dark chrome style']];
+    const themes=[['green','Rolling Wrench Green','Black + neon green shield'],['night','Night Ops','Matte black + military green'],['orange','Diesel Orange','Black + burnt orange'],['blue','Steel Blue','Gunmetal + electric blue'],['red','Fire Red','Black + red high contrast'],['light','Shop Light','White office/invoice mode'],['carbon','Carbon Fiber','Carbon + silver'],['chrome','Chrome & Black','Dark chrome style'],['purple','Purple Torque','Black + electric purple'],['yellow','Warning Yellow','Shop black + caution yellow'],['teal','Turbo Teal','Black + teal glow'],['whitegreen','White Green','Clean white + RWD green'],['copper','Copper Shop','Dark copper + steel'],['diesel','Diesel Smoke','Smoke gray + amber'],['snapon','Snap-On Style','Red + charcoal'],['mac','Mac Tools Style','Black + white + red'],['cornwell','Cornwell Style','Blue + silver'],['matco','Matco Style','Blue + orange'],['usa','USA Flag','Navy + red + white'],['stealth','Stealth Black','Black on black + green']];
     document.getElementById('screen').innerHTML=`${pageHead('Settings','safeSaveSettings')}
       <section class="settings-section form-grid"><h3>Shop Settings</h3><label>Shop Name<input id="safeShop" value="${state.settings.shop||'Rolling Wrench Diesel'}"></label><label>Phone<input id="safePhone" value="${state.settings.phone||'260-502-6222'}"></label><div class="two-col"><label>Shop Labor Rate<input id="safeLabor" type="number" value="${state.settings.laborRate||120}"></label><label>Service Call<input id="safeCall" type="number" value="${state.settings.serviceCall||250}"></label></div></section>
       <section class="settings-section"><h3>Theme Manager</h3><div class="theme-grid">${themes.map(t=>`<button class="theme-card ${state.ui.theme===t[0]?'active':''}" data-rwd-theme-btn="${t[0]}"><b>${t[1]}</b><small>${t[2]}</small></button>`).join('')}</div></section>
@@ -6451,4 +6451,61 @@ try{ document.title = "Rolling Wrench Diesel Production App"; }catch(e){}
 
   if(window.routes){ routes.invoices=renderInvoices005; routes.settings=renderSettings005; routes.phoneai=renderPhoneAI005; routes.schedule=renderSchedule005; }
   window.addEventListener('hashchange',()=>setTimeout(()=>rwdApplyTheme(state.ui&&state.ui.theme),10));
+})();
+
+
+/* RWD BUILD 006B THEME ENGINE - 20 OPTIONS */
+(function(){
+  const RWD_THEMES = {
+    green:{accent:'#38ff85',accent2:'#00b85c',bg:'#020805',panel:'#08130d',panel2:'#0d1f13',border:'#1f6b3a',text:'#eafff1',muted:'#9ee6b8'},
+    night:{accent:'#8aff6a',accent2:'#355c2a',bg:'#030503',panel:'#070b08',panel2:'#0e160f',border:'#263d2a',text:'#ecfff0',muted:'#a8c7a7'},
+    orange:{accent:'#ff8a21',accent2:'#d65f00',bg:'#070401',panel:'#160e07',panel2:'#241407',border:'#75400e',text:'#fff3e8',muted:'#ffc08d'},
+    blue:{accent:'#42a5ff',accent2:'#006cc9',bg:'#02070d',panel:'#07111c',panel2:'#0b1b2a',border:'#1b4b75',text:'#ecf7ff',muted:'#9bd2ff'},
+    red:{accent:'#ff3030',accent2:'#b30000',bg:'#070202',panel:'#170708',panel2:'#23090a',border:'#7a1717',text:'#fff0f0',muted:'#ffaaa8'},
+    light:{accent:'#0b7a3e',accent2:'#155e36',bg:'#eef2f1',panel:'#ffffff',panel2:'#f7faf8',border:'#cfd8d3',text:'#101812',muted:'#4f6257'},
+    carbon:{accent:'#c9d0d6',accent2:'#727b84',bg:'#06080a',panel:'#101418',panel2:'#161b20',border:'#3d454c',text:'#f2f6f8',muted:'#b5bec6'},
+    chrome:{accent:'#e5e5e5',accent2:'#8f8f8f',bg:'#020202',panel:'#090909',panel2:'#151515',border:'#5a5a5a',text:'#f6f6f6',muted:'#cfcfcf'},
+    purple:{accent:'#b44cff',accent2:'#5b00b8',bg:'#06020a',panel:'#12071c',panel2:'#1c0b2b',border:'#5d267d',text:'#fbf0ff',muted:'#d0a6ef'},
+    yellow:{accent:'#ffd21f',accent2:'#b88600',bg:'#060500',panel:'#171403',panel2:'#242007',border:'#6c5a00',text:'#fff9da',muted:'#ffe381'},
+    teal:{accent:'#18f0d0',accent2:'#007e72',bg:'#010807',panel:'#061817',panel2:'#092622',border:'#126b64',text:'#e9fffb',muted:'#8cebe0'},
+    whitegreen:{accent:'#18a957',accent2:'#0b6f38',bg:'#f5faf7',panel:'#ffffff',panel2:'#edf7f0',border:'#b8d8c1',text:'#102216',muted:'#486454'},
+    copper:{accent:'#c7773a',accent2:'#7c3c17',bg:'#070403',panel:'#1a0f09',panel2:'#27150c',border:'#77451f',text:'#fff0e3',muted:'#dca77b'},
+    diesel:{accent:'#ffaa2a',accent2:'#606060',bg:'#050505',panel:'#111111',panel2:'#1b1b1b',border:'#484848',text:'#f4f4f4',muted:'#c3b39d'},
+    snapon:{accent:'#e21b1b',accent2:'#7b0000',bg:'#050505',panel:'#101010',panel2:'#1b0808',border:'#691919',text:'#fff4f4',muted:'#ff9999'},
+    mac:{accent:'#ffffff',accent2:'#c00000',bg:'#030303',panel:'#0b0b0b',panel2:'#151515',border:'#a5a5a5',text:'#ffffff',muted:'#d2d2d2'},
+    cornwell:{accent:'#2b72ff',accent2:'#8ca6c8',bg:'#02050b',panel:'#071127',panel2:'#0d1c38',border:'#264f9b',text:'#eef5ff',muted:'#a9c8ff'},
+    matco:{accent:'#2b78ff',accent2:'#ff7a1a',bg:'#02050a',panel:'#071426',panel2:'#101c2f',border:'#28518b',text:'#eef6ff',muted:'#b7d1ff'},
+    usa:{accent:'#d71920',accent2:'#17468f',bg:'#030714',panel:'#08122c',panel2:'#111d3d',border:'#33558f',text:'#ffffff',muted:'#c8d4ee'},
+    stealth:{accent:'#1dff6b',accent2:'#111111',bg:'#000000',panel:'#050505',panel2:'#090909',border:'#1b1b1b',text:'#e8ffee',muted:'#7abf8d'}
+  };
+  window.RWD_THEME_LIST = Object.keys(RWD_THEMES);
+  window.rwdApplyTheme = function(theme){
+    try{
+      theme = theme || (window.state && state.ui && state.ui.theme) || localStorage.getItem('rwdTheme') || 'green';
+      const t = RWD_THEMES[theme] || RWD_THEMES.green;
+      const root = document.documentElement;
+      root.setAttribute('data-rwd-theme', theme);
+      document.body.setAttribute('data-rwd-theme', theme);
+      for(const [k,v] of Object.entries(t)) root.style.setProperty('--'+k, v);
+      root.style.setProperty('--orange', t.accent);
+      root.style.setProperty('--orange2', t.accent2);
+      root.style.setProperty('--blue', t.accent);
+      root.style.setProperty('--bg', t.bg);
+      root.style.setProperty('--panel', t.panel);
+      root.style.setProperty('--panel2', t.panel2);
+      root.style.setProperty('--panel3', t.panel2);
+      root.style.setProperty('--line', t.border);
+      root.style.setProperty('--muted', t.muted);
+      if(window.state){ state.ui = state.ui || {}; state.ui.theme = theme; try{ saveState(); }catch(e){} }
+      localStorage.setItem('rwdTheme', theme);
+    }catch(e){ console.warn('Theme apply failed', e); }
+  };
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('[data-rwd-theme-btn],[data-theme]');
+    if(!btn) return;
+    const theme = btn.dataset.rwdThemeBtn || btn.dataset.theme;
+    if(theme){ window.rwdApplyTheme(theme); document.querySelectorAll('.theme-card').forEach(x=>x.classList.toggle('active',(x.dataset.rwdThemeBtn||x.dataset.theme)===theme)); }
+  }, true);
+  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>window.rwdApplyTheme(localStorage.getItem('rwdTheme') || (window.state&&state.ui&&state.ui.theme) || 'green'),50));
+  setTimeout(()=>window.rwdApplyTheme(localStorage.getItem('rwdTheme') || (window.state&&state.ui&&state.ui.theme) || 'green'),300);
 })();
