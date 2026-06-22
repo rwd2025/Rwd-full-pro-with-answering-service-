@@ -1,0 +1,21 @@
+Rolling Wrench Diesel Production App - Build: PRODUCTION-DISPATCHER-MERGED-003
+
+Completed:
+- Removed visible Ask Rolling Wrench chat/AI entry from Home.
+- Locked ai/brain/rwai routes back to Home so the chat screen cannot open from old buttons.
+- Kept business utility helpers: invoices, quotes, work orders, clock, customers, schedule, OCR/vision, backend, parts, repair memory, reports, files, GPS.
+- Added Paste / Import Invoice From Here panel inside Professional Invoice.
+- Paste importer fills customer, truck/VIN, work performed, labor hours, rate, service call, travel, parts/materials, parts total, supplies, tax/fees, discount, and notes.
+- Invoice import automatically opens invoice preview after filling fields.
+- Updated app title, manifest, footer, and service worker cache version for fresh phone/Home Screen install.
+- Removed old test-report/build-note files from production package.
+- JavaScript syntax check passed: node --check app.js.
+
+Install:
+1. Upload the contents of this folder to GitHub Pages or your current host.
+2. On iPhone, delete the old Home Screen icon first.
+3. Open the live site in Safari, refresh once, then Add to Home Screen again.
+
+Notes:
+- This is still a static/PWA production cut. Backend features depend on your existing Supabase/Render endpoints being live.
+- Browser test could not be completed in this container because Chromium is not installed, but static syntax validation passed.

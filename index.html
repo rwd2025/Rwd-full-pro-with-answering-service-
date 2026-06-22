@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"/>
+  <meta name="theme-color" content="#10131a"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <title>SBA-A001-RWD-MASTER-009</title>
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="apple-touch-icon" href="icon-192.svg"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="app-shell">
+    <div class="bg-metal"></div>
+    <div class="bg-glow"></div>
+
+    <header class="app-header">
+      <button class="icon-btn" data-route="home" aria-label="Menu">☰</button>
+      <div class="brand-mark">RW</div>
+      <div class="brand-copy">
+        <h1>Rolling <span>Wrench</span> Diesel</h1>
+        <p>Production Work App</p>
+      </div>
+      <button class="icon-btn alert-btn" data-route="alerts" aria-label="Alerts">●<b id="alertCount">0</b></button>
+      <button class="icon-btn" data-route="settings" aria-label="Settings">⚙</button>
+    </header>
+
+    <main id="screen"></main>
+
+    <nav class="bottom-nav">
+      <button class="active" data-route="home"><span>⌂</span><b>Home</b></button>
+      <button data-route="truck"><span>▰</span><b>Truck</b></button>
+      <button data-route="repair"><span>🛠</span><b>Repair</b></button>
+      <button data-route="business"><span>▣</span><b>Business</b></button>
+      <button data-route="schedule"><span>📅</span><b>Schedule</b></button>
+    </nav>
+
+    <div id="toast"></div>
+  <footer class="legal-footer">© 2026 Rolling Wrench Diesel LLC • All Rights Reserved • Rolling Wrench Diesel Production App</footer>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="settings-fix.js"></script>
+  <script src="startup-home-fix.js"></script>
+</body>
+</html>

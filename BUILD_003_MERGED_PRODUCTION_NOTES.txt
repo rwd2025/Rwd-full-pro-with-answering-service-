@@ -1,0 +1,13 @@
+Rolling Wrench Diesel Production App Build 003
+
+Merged build for new repo upload.
+
+Included:
+- Core shop app: clock, invoices, quotes, work orders, schedule, customers, truck/VIN, parts, OCR/camera, reports, PM, suppliers, settings.
+- Visible Ask Rolling Wrench chat removed from Home workflow.
+- AI helper tools kept where they support invoices, quote parsing, OCR, parts/workflow, and dispatcher intake.
+- AI Dispatcher added as a core module.
+- Dispatcher can paste call transcripts, create call leads, send leads to Schedule, and create Work Orders.
+- Twilio/phone backend starter included: phone-agent-server.js, phone-agent.env.example, PHONE_ANSWERING_SETUP.md.
+
+Upload the CONTENTS of this folder to the new GitHub repo, not the zip file itself.
